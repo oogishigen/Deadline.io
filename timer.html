@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="ja">
+     <head>
+         <meta charaset = "utf-8">
+         <titel>Dead Line Timer</titel>
+         <script language = "JavaScript">
+
+            window.onload=showday;
+            year=2023; //終了年
+            mon=6; //終了月
+            day=10; //終了日
+            time=23; //終了時
+            xday = new Date(year,mon-1,day,time,00,00);
+            function showday() {
+                nowday = new Date();
+                passtime= xday.getTime()-nowday.getTime();　
+
+                cnt_year = Math.floor(passtime/(1000*60*60*24*365));
+                passtime = passtime -(cnt_year*(1000*60*60*24*365));
+                cnt_day = Math.floor(passtime/(1000*60*60*24));
+                passtime = passtime -(cnt_day*(1000*60*60*24)); 
+                cnt_hour = Math.floor(passtime/(1000*60*60));
+                passtime = passtime -(cnt_hour*(1000*60*60));
+                cnt_min = Math.floor(passtime/(1000*60));
+                passtime = passtime -(cnt_min*(1000*60));
+                cnt_sec = Math.floor(passtime/1000);
+                passtime = passtime -(cnt_sec*(1000));
+                cnt_millisec = Math.floor(passtime/10);
+
+                if(cnt_min<10){cnt_min = '0' + cnt_min;}
+                if(cnt_sec<10){cnt_sec = '0' + cnt_sec;}
+                if(cnt_millisec<10){cnt_millisec = '0' + cnt_millisec;}
+
+            if((xday - nowday) > 0){
+                document.tbox.dspday.value = "卒論提出期限までまで "+cnt_year+"年と "+cnt_day+"日と "+cnt_hour+"時間"+cnt_min+"分"+cnt_sec+"秒"+cnt_millisec+"です。 "
+            }
+            else {
+                document.tbox.dspday.value = "卒論提出日です！"
+            }
+                timerID = setTimeout('showday()', 10);
+            }
+
+            </script> 
+            </head>
+            <body margin="0" topmargin="0" marginheight="0" marginwidth="0">
+             <form name="tbox">
+                 <input name="dspday" type="text" style="font-size : 20pt; color : red; text-align : left;border-width : 0px ;font-weight :bold ;" size="70">
+                </form>
+            </body>
+             </html>
